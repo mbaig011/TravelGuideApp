@@ -76,4 +76,6 @@ class FlaskTestCase(unittest.TestCase):
     @patch('app.cities_table.query', mock_cities_query_no_results)
     def test_city_detail_404(self):
         "Test empty results from the data store"
-        # I'll finish this later
+        tester = app.app.test_client(self)
+        response = tester.get('/city/this-doesnt-exist')
+        self.assertEqual(response.status_code, 404)
